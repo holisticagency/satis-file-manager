@@ -1,0 +1,34 @@
+{
+    "name": "holisticagency/satis-file-manager",
+    "description": "Satis configuration file utilities",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Gil",
+            "email": "gillesodret@users.noreply.github.com"
+        }
+    ],
+    "require": {
+        "composer/composer": "~1.0@alpha"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "holisticagency\\satis\\utilities\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "holisticagency\\satis\\Test\\": "tests/"
+        }
+    },
+    "homepage": "https://github.com/holisticagency/satis-file-manager",
+    "keywords": ["composer", "satis", "configuration"],
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
+}

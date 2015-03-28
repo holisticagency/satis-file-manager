@@ -9,3 +9,5 @@ add the code below to your `composer.json` file :
         "holisticagency/satis-file-manager": "~1.0@dev"
 }
 `````
+
+It is not yet full featured.

@@ -10,4 +10,12 @@ add the code below to your `composer.json` file :
 }
 `````
 
-It is not yet full featured.
+add the code below in a PHP file :
+```php
+use holisticagency\satis\utilities\SatisFile;
+
+$file = new SatisFile('http://domain.tld');
+echo $file->json();
+```
+
+It is not yet full featured. Other options should be created, like the name, requires, ...

@@ -20,13 +20,28 @@ use Composer\Repository\ArtifactRepository;
  */
 class SatisArtifactRepository extends ArtifactRepository
 {
+    /**
+     * The lookup path to be exposed.
+     *
+     * @var string
+     */
     protected $lookup;
 
+    /**
+     * Constructor.
+     *
+     * @param RepositoryInterface $repository ArtifactRepository object
+     */
     public function __construct(RepositoryInterface $repository)
     {
         $this->lookup = $repository->lookup;
     }
 
+    /**
+     * Public method to expose the path of an ArtifactRepository.
+     *
+     * @return string The lookup path to be exposed
+     */
     public function getLookup()
     {
         return $this->lookup;

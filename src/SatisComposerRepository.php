@@ -20,13 +20,28 @@ use Composer\Repository\ComposerRepository;
  */
 class SatisComposerRepository extends ComposerRepository
 {
+    /**
+     * The url to be exposed.
+     *
+     * @var string
+     */
     protected $url;
 
+    /**
+     * Constructor.
+     *
+     * @param RepositoryInterface $repository ComposerRepository object
+     */
     public function __construct(RepositoryInterface $repository)
     {
         $this->url = $repository->url;
     }
 
+    /**
+     * Public method to expose the url of a ComposerRepository.
+     *
+     * @return string The url to be exposed
+     */
     public function getUrl()
     {
         return $this->url;

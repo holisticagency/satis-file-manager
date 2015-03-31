@@ -144,7 +144,7 @@ class SatisFileRepoSettingTest extends PHPUnit_Framework_TestCase
             ->setRepository($vcsRepository);
 
         $this->satisFile = $this->satisFile
-            ->unsetRepository($vcsRepository, true);
+            ->unsetRepository($vcsRepository);
 
         $this->assertEquals(
             '{

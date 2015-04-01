@@ -29,7 +29,7 @@ class SatisFileRepoSettingTest extends PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->satisFile = new SatisFile('http://localhost:8987');
+        $this->satisFile = new SatisFile('http://localhost:54715');
     }
 
     public function testUpdatedJson()
@@ -42,7 +42,7 @@ class SatisFileRepoSettingTest extends PHPUnit_Framework_TestCase
         $this->satisFile
             ->setRepository($vcsRepository);
 
-        $updatedSatisFile = new SatisFile('http://localhost:8987', $this->satisFile->asArray());
+        $updatedSatisFile = new SatisFile('http://localhost:54715', $this->satisFile->asArray());
 
         $vcsNewRepository = new VcsRepository(
             array('type' => 'vcs', 'url' => 'https://github.com/othervendor/othername.git'),
@@ -55,7 +55,7 @@ class SatisFileRepoSettingTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             '{
     "name": "default name",
-    "homepage": "http://localhost:8987",
+    "homepage": "http://localhost:54715",
     "repositories": [
         {
             "type": "vcs",
@@ -111,7 +111,7 @@ class SatisFileRepoSettingTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             '{
     "name": "default name",
-    "homepage": "http://localhost:8987",
+    "homepage": "http://localhost:54715",
     "repositories": [
         {
             "type": "vcs",
@@ -149,7 +149,7 @@ class SatisFileRepoSettingTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             '{
     "name": "default name",
-    "homepage": "http://localhost:8987",
+    "homepage": "http://localhost:54715",
     "repositories": [],
     "require-all": true,
     "archive": {
@@ -184,7 +184,7 @@ class SatisFileRepoSettingTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             '{
     "name": "default name",
-    "homepage": "http://localhost:8987",
+    "homepage": "http://localhost:54715",
     "repositories": [
         {
             "type": "vcs",
@@ -224,7 +224,7 @@ class SatisFileRepoSettingTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             '{
     "name": "default name",
-    "homepage": "http://localhost:8987",
+    "homepage": "http://localhost:54715",
     "repositories": [
         {
             "type": "vcs",
@@ -263,7 +263,7 @@ class SatisFileRepoSettingTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             '{
     "name": "default name",
-    "homepage": "http://localhost:8987",
+    "homepage": "http://localhost:54715",
     "repositories": [
         {
             "type": "vcs",
@@ -302,7 +302,7 @@ class SatisFileRepoSettingTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             '{
     "name": "default name",
-    "homepage": "http://localhost:8987",
+    "homepage": "http://localhost:54715",
     "repositories": [
         {
             "type": "git",

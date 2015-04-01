@@ -29,16 +29,16 @@ class SatisFileInitializationTest extends PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->satisFile = new SatisFile('http://localhost:8987');
+        $this->satisFile = new SatisFile('http://localhost:54715');
     }
 
     public function testBlankInitialization()
     {
-        $blankSatisFile = new SatisFile('http://localhost:8987');
+        $blankSatisFile = new SatisFile('http://localhost:54715');
         $this->assertEquals(
             array(
                 'name'  => 'default name',
-                'homepage' => 'http://localhost:8987',
+                'homepage' => 'http://localhost:54715',
                 'repositories' => array(),
                 'require-all' => true,
                 'archive' => array(
@@ -53,11 +53,11 @@ class SatisFileInitializationTest extends PHPUnit_Framework_TestCase
 
     public function testInitializationWithArray()
     {
-        $satisWithArray = new SatisFile('http://localhost:8987', $this->satisFile->asArray());
+        $satisWithArray = new SatisFile('http://localhost:54715', $this->satisFile->asArray());
         $this->assertEquals(
             array(
                 'name'  => 'default name',
-                'homepage' => 'http://localhost:8987',
+                'homepage' => 'http://localhost:54715',
                 'repositories' => array(),
                 'require-all' => true,
                 'archive' => array(
@@ -72,11 +72,11 @@ class SatisFileInitializationTest extends PHPUnit_Framework_TestCase
 
     public function testInitializationWithJson()
     {
-        $satisWithArray = new SatisFile('http://localhost:8987', $this->satisFile->json());
+        $satisWithArray = new SatisFile('http://localhost:54715', $this->satisFile->json());
         $this->assertEquals(
             array(
                 'name'  => 'default name',
-                'homepage' => 'http://localhost:8987',
+                'homepage' => 'http://localhost:54715',
                 'repositories' => array(),
                 'require-all' => true,
                 'archive' => array(
@@ -102,7 +102,7 @@ class SatisFileInitializationTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             '{
     "name": "default name",
-    "homepage": "http://localhost:8987",
+    "homepage": "http://localhost:54715",
     "repositories": [
         {
             "type": "vcs",
@@ -132,7 +132,7 @@ class SatisFileInitializationTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             '{
     "name": "default name",
-    "homepage": "http://localhost:8987",
+    "homepage": "http://localhost:54715",
     "repositories": [
         {
             "type": "artifact",
@@ -159,7 +159,7 @@ class SatisFileInitializationTest extends PHPUnit_Framework_TestCase
             ),
         ));
         $ComposerRepository = new ComposerRepository(
-            array('type' => 'composer', 'url' => 'http://localhost:18987'),
+            array('type' => 'composer', 'url' => 'http://localhost:154715'),
             new NullIO(),
             $config
         );
@@ -169,11 +169,11 @@ class SatisFileInitializationTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             '{
     "name": "default name",
-    "homepage": "http://localhost:8987",
+    "homepage": "http://localhost:54715",
     "repositories": [
         {
             "type": "composer",
-            "url": "http://localhost:18987"
+            "url": "http://localhost:154715"
         }
     ],
     "require-all": true,

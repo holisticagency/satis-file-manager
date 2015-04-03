@@ -159,7 +159,7 @@ class SatisFileInitializationTest extends PHPUnit_Framework_TestCase
             ),
         ));
         $ComposerRepository = new ComposerRepository(
-            array('type' => 'composer', 'url' => 'http://localhost:154715'),
+            array('type' => 'composer', 'url' => 'http://localhost:43604'),
             new NullIO(),
             $config
         );
@@ -173,7 +173,7 @@ class SatisFileInitializationTest extends PHPUnit_Framework_TestCase
     "repositories": [
         {
             "type": "composer",
-            "url": "http://localhost:154715"
+            "url": "http://localhost:43604"
         }
     ],
     "require-all": true,

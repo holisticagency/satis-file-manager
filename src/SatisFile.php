@@ -148,6 +148,21 @@ class SatisFile
     }
 
     /**
+     * Sets the name of the repository.
+     * 
+     * @param string $name the new name of the repository
+     *
+     * @return SatisFile this SatisFile Instance
+     */
+    public function setName($name = 'default name')
+    {
+        $this->name = $name;
+        $this->satisConfig['name'] = $name;
+
+        return $this;
+    }
+
+    /**
      * Unset a Repository out of the configuration.
      *
      * @param RepositoryInterface $repository The repository to set

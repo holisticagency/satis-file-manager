@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of holisatis.
  *
@@ -42,6 +43,13 @@ class SatisFile
     private $repositories = array();
 
     /**
+     * Configuration options for html output.
+     *
+     * @var SatisWebOutput
+     */
+    private $webOptions;
+
+    /**
      * Configuration array.
      *
      * @var array
@@ -52,15 +60,22 @@ class SatisFile
      * Constructor.
      *
      * @param string       $homepage       Homepage
-     * @param array|string $existingConfig Array of an existing configuration
+     * @param array|string $existingConfig Array|json string of an existing configuration
      */
     public function __construct($homepage, $existingConfig = null)
     {
         $this->homepage = rtrim($homepage, '/');
+
         if (is_string($existingConfig) && $tmpConfig = JsonFile::parseJson($existingConfig)) {
             $existingConfig = $tmpConfig;
         }
+
+        if (isset($existingConfig['twig-template'])) {
+            $this->webOptions = new SatisWebOutput($existingConfig['twig-template']);
+        }
+
         $this->satisConfig = $existingConfig ?: $this->getDefaultConfig();
+
         foreach ($this->satisConfig['repositories'] as $index => $satisRepository) {
             $this->repositories[$index] = md5(implode($satisRepository));
         }
@@ -73,7 +88,7 @@ class SatisFile
      */
     private function getDefaultConfig()
     {
-        return array(
+        $defaults = array(
             'name'  => $this->name,
             'homepage' => $this->homepage,
             'repositories' => array(),
@@ -82,8 +97,13 @@ class SatisFile
                 'directory' => 'dist',
                 'format' => 'zip',
             ),
-            'output-html' => false,
         );
+
+        $this->webOptions = new SatisWebOutput();
+        $webOptions = $this->webOptions->disable()->get();
+        $defaults = array_merge($defaults, $webOptions);
+
+        return $defaults;
     }
 
     /**
@@ -108,7 +128,7 @@ class SatisFile
             $repository = new SatisArtifactRepository($repository);
             $satisRepository = array('type' => 'artifact', 'url' => $repository->getLookup());
         } else {
-            throw new \Exception("Error Processing Request", 1);
+            throw new \Exception('Error Processing Request', 1);
         }
 
         return $satisRepository;
@@ -149,7 +169,7 @@ class SatisFile
 
     /**
      * Sets the name of the repository.
-     * 
+     *
      * @param string $name the new name of the repository
      *
      * @return SatisFile this SatisFile Instance
@@ -158,6 +178,36 @@ class SatisFile
     {
         $this->name = $name;
         $this->satisConfig['name'] = $name;
+
+        return $this;
+    }
+
+    /**
+     * Gets configuration options for html output.
+     *
+     * @return SatisWebOutput configuration options for html output
+     */
+    public function getWebOptions()
+    {
+        return $this->webOptions;
+    }
+
+    /**
+     * Sets configuration options for html output.
+     *
+     * @param array $webOptions Options to set
+     *
+     * @return SatisFile this SatisFile Instance
+     */
+    public function setWebOptions(array $webOptions)
+    {
+        if (isset($webOptions['output-html']) && $webOptions['output-html'] == false) {
+            $this->webOptions->disable();
+        }
+
+        if (isset($webOptions['twig-template']) && is_string($webOptions['twig-template'])) {
+            $this->webOptions->set($webOptions['twig-template']);
+        }
 
         return $this;
     }

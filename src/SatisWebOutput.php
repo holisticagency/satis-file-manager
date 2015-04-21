@@ -19,7 +19,7 @@ namespace holisticagency\satis\utilities;
 class SatisWebOutput
 {
     /**
-     * [$outputHtml description].
+     * controls whether the repository has an html page as well or not.
      *
      * @var bool
      */

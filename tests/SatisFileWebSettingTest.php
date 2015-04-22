@@ -42,9 +42,10 @@ class SatisFileWebSettingTest extends PHPUnit_Framework_TestCase
 
     public function testInitializationWithTwigOption()
     {
+        $webConfig = $this->satisFile1->getWebOptions()->get();
         $this->assertEquals(
             '/path/to/twig/templates',
-            $this->satisFile1->getWebOptions()->get()['twig-template']
+            $webConfig['twig-template']
         );
     }
 
@@ -52,13 +53,15 @@ class SatisFileWebSettingTest extends PHPUnit_Framework_TestCase
     {
         $this->satisFile2->setWebOptions(array('output-html' => false));
 
-        $this->assertFalse($this->satisFile2->getWebOptions()->get()['output-html']);
+        $webConfig = $this->satisFile2->getWebOptions()->get();
+        $this->assertFalse($webConfig['output-html']);
 
         $this->satisFile2->setWebOptions(array('twig-template' => '/path/to/twig/templates'));
-    
+
+        $webConfig = $this->satisFile2->getWebOptions()->get();
         $this->assertEquals(
             '/path/to/twig/templates',
-            $this->satisFile2->getWebOptions()->get()['twig-template']
+            $webConfig['twig-template']
         );
     }
 }

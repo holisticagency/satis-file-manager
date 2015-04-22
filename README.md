@@ -22,7 +22,7 @@ $new->setName('My Own Private Repository');
 //This actives the Satis default html output:
 $new->setWebOptions(array('output-html' => true));
 //Or:
-$new->setWebOptions(array('twig-template' => '/path/to/my/twig/templages'));
+$new->setWebOptions(array('twig-template' => '/path/to/my/twig/templates'));
 
 //Look at the result
 echo $new->json();

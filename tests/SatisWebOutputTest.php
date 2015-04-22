@@ -18,7 +18,7 @@ use holisticagency\satis\utilities\SatisWebOutput;
  *
  * @author Gil <gillesodret@users.noreply.github.com>
  */
-class SatisWebInitializationTest extends PHPUnit_Framework_TestCase
+class SatisWebOutputTest extends PHPUnit_Framework_TestCase
 {
     protected $outputs;
 

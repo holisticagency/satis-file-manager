@@ -6,7 +6,7 @@ This lirary helps to create and update repositories in `satis.json` files.
 add the code below to your `composer.json` file :
 ```json
 "require": {
-    "holisticagency/satis-file-manager": "~1.0@dev"
+    "holisticagency/satis-file-manager": "~1.0@alpha"
 }
 `````
 
@@ -16,6 +16,15 @@ use holisticagency\satis\utilities\SatisFile;
 
 //Create a configuration for a repository located at http://domain.tld
 $new = new SatisFile('http://domain.tld');
+$new->setName('My Own Private Repository');
+
+//By default, no web outputs are set.
+//This actives the Satis default html output:
+$new->setWebOptions(array('output-html' => true));
+//Or:
+$new->setWebOptions(array('twig-template' => '/path/to/my/twig/templates'));
+
+//Look at the result
 echo $new->json();
 
 //Add a Vcs repository to an existing configuration

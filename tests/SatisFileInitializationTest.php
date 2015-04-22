@@ -191,6 +191,7 @@ class SatisFileInitializationTest extends PHPUnit_Framework_TestCase
     {
         $this->satisFile->setName('new name');
 
-        $this->assertEquals('new name', $this->satisFile->asArray()['name']);
+        $config = $this->satisFile->asArray();
+        $this->assertEquals('new name', $config['name']);
     }
 }

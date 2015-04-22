@@ -50,6 +50,13 @@ class SatisFile
     private $webOptions;
 
     /**
+     * Configuration options for dist archive.
+     *
+     * @var SatisArchiveOptions
+     */
+    private $archiveOptions;
+
+    /**
      * Configuration array.
      *
      * @var array
@@ -74,6 +81,11 @@ class SatisFile
             $this->webOptions = new SatisWebOutput($existingConfig['twig-template']);
         }
 
+        if (isset($existingConfig['archive'])) {
+            $this->archiveOptions = new SatisArchiveOptions();
+            $this->archiveOptions->set($existingConfig['archive']);
+        }
+
         $this->satisConfig = $existingConfig ?: $this->getDefaultConfig();
 
         foreach ($this->satisConfig['repositories'] as $index => $satisRepository) {
@@ -93,15 +105,14 @@ class SatisFile
             'homepage' => $this->homepage,
             'repositories' => array(),
             'require-all' => true,
-            'archive' => array(
-                'directory' => 'dist',
-                'format' => 'zip',
-            ),
         );
 
         $this->webOptions = new SatisWebOutput();
         $webOptions = $this->webOptions->disable()->get();
         $defaults = array_merge($defaults, $webOptions);
+        $this->archiveOptions = new SatisArchiveOptions();
+        $this->archiveOptions->set(array('directory' => 'dist'));
+        $defaults = array_merge($defaults, $this->archiveOptions->get());
 
         return $defaults;
     }
@@ -208,6 +219,44 @@ class SatisFile
         if (isset($webOptions['twig-template']) && is_string($webOptions['twig-template'])) {
             $this->webOptions->set($webOptions['twig-template']);
         }
+
+        return $this;
+    }
+
+    /**
+     * Gets configuration options for dist downloads.
+     *
+     * @return array Configuration options for dist downloads
+     */
+    public function getArchiveOptions()
+    {
+        $archiveOptions = $this->archiveOptions->get();
+
+        return isset($archiveOptions['archive']) ? $archiveOptions['archive'] : array();
+    }
+
+    /**
+     * Sets configuration options for dist downloads.
+     *
+     * @param array $archiveOptions Options to set
+     *
+     * @return SatisFile this SatisFile Instance
+     */
+    public function setArchiveOptions(array $archiveOptions)
+    {
+        $this->archiveOptions->set($archiveOptions);
+
+        return $this;
+    }
+
+    /**
+     * Disable configuration options for dist downloads.
+     *
+     * @return SatisFile this SatisFile Instance
+     */
+    public function disableArchiveOptions()
+    {
+        $this->archiveOptions->disable();
 
         return $this;
     }

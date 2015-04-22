@@ -31,6 +31,12 @@ echo $new->json();
 $vcs = new \Composer\Repository\VcsRepository(...);
 $toBeUpdated = new SatisFile('http://domain.tld', $existingConfig);
 var_dump($toBeUpdated->setRepository($vcs)->asArray());
+
+//By default, downloads are enable with zip format and a `dist` directory.
+//This does some changes in archive options
+$satis->setArchiveOptions(array('directory' => 'downloads', 'skip-dev' => true));
+//This disables dist downloads
+$satis->disableArchiveOptions();
 ```
 
-It is not yet full featured. This utility can set vcs, composer or artifact repositories. `\Composer\Repository\PackageRepository` should be implemented. Other options should be created, like requires, archive options, deps ...
+It is not yet full featured. This utility can set vcs, composer or artifact repositories. `\Composer\Repository\PackageRepository` should be implemented. Other options should be created, like requires and deps, security options ...

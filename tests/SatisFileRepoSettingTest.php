@@ -67,11 +67,10 @@ class SatisFileRepoSettingTest extends PHPUnit_Framework_TestCase
         }
     ],
     "require-all": true,
+    "output-html": false,
     "archive": {
-        "directory": "dist",
-        "format": "zip"
-    },
-    "output-html": false
+        "directory": "dist"
+    }
 }',
             $updatedSatisFile->json()
         );
@@ -123,11 +122,10 @@ class SatisFileRepoSettingTest extends PHPUnit_Framework_TestCase
         }
     ],
     "require-all": true,
+    "output-html": false,
     "archive": {
-        "directory": "dist",
-        "format": "zip"
-    },
-    "output-html": false
+        "directory": "dist"
+    }
 }',
             $this->satisFile->json()
         );
@@ -152,11 +150,10 @@ class SatisFileRepoSettingTest extends PHPUnit_Framework_TestCase
     "homepage": "http://localhost:54715",
     "repositories": [],
     "require-all": true,
+    "output-html": false,
     "archive": {
-        "directory": "dist",
-        "format": "zip"
-    },
-    "output-html": false
+        "directory": "dist"
+    }
 }',
             $this->satisFile->json()
         );
@@ -192,11 +189,10 @@ class SatisFileRepoSettingTest extends PHPUnit_Framework_TestCase
         }
     ],
     "require-all": true,
+    "output-html": false,
     "archive": {
-        "directory": "dist",
-        "format": "zip"
-    },
-    "output-html": false
+        "directory": "dist"
+    }
 }',
             $this->satisFile->json()
         );
@@ -232,11 +228,10 @@ class SatisFileRepoSettingTest extends PHPUnit_Framework_TestCase
         }
     ],
     "require-all": true,
+    "output-html": false,
     "archive": {
-        "directory": "dist",
-        "format": "zip"
-    },
-    "output-html": false
+        "directory": "dist"
+    }
 }',
             $this->satisFile->json()
         );
@@ -271,11 +266,10 @@ class SatisFileRepoSettingTest extends PHPUnit_Framework_TestCase
         }
     ],
     "require-all": true,
+    "output-html": false,
     "archive": {
-        "directory": "dist",
-        "format": "zip"
-    },
-    "output-html": false
+        "directory": "dist"
+    }
 }',
             $this->satisFile->json()
         );
@@ -310,11 +304,10 @@ class SatisFileRepoSettingTest extends PHPUnit_Framework_TestCase
         }
     ],
     "require-all": true,
+    "output-html": false,
     "archive": {
-        "directory": "dist",
-        "format": "zip"
-    },
-    "output-html": false
+        "directory": "dist"
+    }
 }',
             $this->satisFile->json()
         );

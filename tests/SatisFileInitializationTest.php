@@ -44,7 +44,6 @@ class SatisFileInitializationTest extends PHPUnit_Framework_TestCase
                 'require-all' => true,
                 'archive' => array(
                     'directory' => 'dist',
-                    'format' => 'zip',
                 ),
                 'output-html' => false,
             ),
@@ -63,7 +62,6 @@ class SatisFileInitializationTest extends PHPUnit_Framework_TestCase
                 'require-all' => true,
                 'archive' => array(
                     'directory' => 'dist',
-                    'format' => 'zip',
                 ),
                 'output-html' => false,
             ),
@@ -82,7 +80,6 @@ class SatisFileInitializationTest extends PHPUnit_Framework_TestCase
                 'require-all' => true,
                 'archive' => array(
                     'directory' => 'dist',
-                    'format' => 'zip',
                 ),
                 'output-html' => false,
             ),
@@ -111,11 +108,10 @@ class SatisFileInitializationTest extends PHPUnit_Framework_TestCase
         }
     ],
     "require-all": true,
+    "output-html": false,
     "archive": {
-        "directory": "dist",
-        "format": "zip"
-    },
-    "output-html": false
+        "directory": "dist"
+    }
 }',
             $this->satisFile->json()
         );
@@ -141,11 +137,10 @@ class SatisFileInitializationTest extends PHPUnit_Framework_TestCase
         }
     ],
     "require-all": true,
+    "output-html": false,
     "archive": {
-        "directory": "dist",
-        "format": "zip"
-    },
-    "output-html": false
+        "directory": "dist"
+    }
 }',
             $this->satisFile->json()
         );
@@ -178,11 +173,10 @@ class SatisFileInitializationTest extends PHPUnit_Framework_TestCase
         }
     ],
     "require-all": true,
+    "output-html": false,
     "archive": {
-        "directory": "dist",
-        "format": "zip"
-    },
-    "output-html": false
+        "directory": "dist"
+    }
 }',
             $this->satisFile->json()
         );

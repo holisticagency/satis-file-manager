@@ -41,7 +41,7 @@ class SatisArchiveOptions implements Serializable
      */
     private $optionalKeys = array(
         'format', 'prefix-url', 'skip-dev',
-        'whitelist', 'blacklist', 'absolute-directory'
+        'whitelist', 'blacklist', 'absolute-directory',
     );
 
     /**
@@ -64,7 +64,7 @@ class SatisArchiveOptions implements Serializable
     private $allowed = array('format' => array('zip', 'tar'));
 
     /**
-     * Satis archive configuration options
+     * Satis archive configuration options.
      *
      * @var array
      */
@@ -79,21 +79,21 @@ class SatisArchiveOptions implements Serializable
     {
         //required
         foreach ($this->requiredKeys as $requiredKey) {
-            if(!array_key_exists($requiredKey, $this->archive)) {
+            if (!array_key_exists($requiredKey, $this->archive)) {
                 return false;
             }
         }
 
         //allowed
-        foreach($this->archive as $key => $value) {
-            if(array_key_exists($key, $this->allowed) && !in_array($value, $this->allowed[$key])) {
+        foreach ($this->archive as $key => $value) {
+            if (array_key_exists($key, $this->allowed) && !in_array($value, $this->allowed[$key])) {
                 return false;
             }
         }
 
         //unknow keys
         foreach ($this->archive as $key => $value) {
-            if(!in_array($key, array_merge($this->requiredKeys, $this->optionalKeys))) {
+            if (!in_array($key, array_merge($this->requiredKeys, $this->optionalKeys))) {
                 return false;
             }
         }
@@ -156,6 +156,7 @@ class SatisArchiveOptions implements Serializable
     {
         if ($this->enable) {
             $this->clean();
+
             return array('archive' => $this->archive);
         }
 

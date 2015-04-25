@@ -179,6 +179,28 @@ class SatisFile
     }
 
     /**
+     * Sets the minimum stability of the packages to build in the repository.
+     *
+     * @param string $minimumStability the new minimum stability of the repository
+     *
+     * @return SatisFile this SatisFile Instance
+     */
+    public function setStability($minimumStability = '')
+    {
+        //unset or default value
+        if (in_array($minimumStability, array(null, '', 'dev'))) {
+            unset($this->satisConfig['minimum-stability']);
+        }
+
+        //alowed values
+        if (in_array($minimumStability, array('stable', 'RC', 'beta', 'alpha'))) {
+            $this->satisConfig['minimum-stability'] = $minimumStability;
+        }
+
+        return $this;
+    }
+
+    /**
      * Sets the name of the repository.
      *
      * @param string $name the new name of the repository

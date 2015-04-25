@@ -189,4 +189,32 @@ class SatisFileInitializationTest extends PHPUnit_Framework_TestCase
         $config = $this->satisFile->asArray();
         $this->assertEquals('new name', $config['name']);
     }
+
+    public function testSetStability()
+    {
+        $this->satisFile->setStability('alpha');
+
+        $config = $this->satisFile->asArray();
+        $this->assertEquals('alpha', $config['minimum-stability']);
+    }
+
+    /**
+     * @depends testSetStability
+     */
+    public function testUnsetStability()
+    {
+        $this->satisFile->setStability('dev');
+
+        $config = $this->satisFile->asArray();
+        $this->assertFalse(isset($config['minimum-stability']));
+    }
+
+    public function testWrongSetStability()
+    {
+        $this->satisFile->setStability('alpha');
+        $this->satisFile->setStability('wrong');
+
+        $config = $this->satisFile->asArray();
+        $this->assertEquals('alpha', $config['minimum-stability']);
+    }
 }

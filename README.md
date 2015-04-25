@@ -18,6 +18,9 @@ use holisticagency\satis\utilities\SatisFile;
 $new = new SatisFile('http://domain.tld');
 $new->setName('My Own Private Repository');
 
+//Set minimum stability of the repository
+$satis->setStability('stable');
+
 //By default, no web outputs are set.
 //This actives the Satis default html output:
 $new->setWebOptions(array('output-html' => true));

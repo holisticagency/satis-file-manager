@@ -42,10 +42,10 @@ class SatisFileInitializationTest extends PHPUnit_Framework_TestCase
                 'homepage' => 'http://localhost:54715',
                 'repositories' => array(),
                 'require-all' => true,
+                'output-html' => false,
                 'archive' => array(
                     'directory' => 'dist',
                 ),
-                'output-html' => false,
             ),
             $blankSatisFile->asArray()
         );
@@ -60,10 +60,10 @@ class SatisFileInitializationTest extends PHPUnit_Framework_TestCase
                 'homepage' => 'http://localhost:54715',
                 'repositories' => array(),
                 'require-all' => true,
+                'output-html' => false,
                 'archive' => array(
                     'directory' => 'dist',
                 ),
-                'output-html' => false,
             ),
             $satisWithArray->asArray()
         );
@@ -78,10 +78,10 @@ class SatisFileInitializationTest extends PHPUnit_Framework_TestCase
                 'homepage' => 'http://localhost:54715',
                 'repositories' => array(),
                 'require-all' => true,
+                'output-html' => false,
                 'archive' => array(
                     'directory' => 'dist',
                 ),
-                'output-html' => false,
             ),
             $satisWithArray->asArray()
         );

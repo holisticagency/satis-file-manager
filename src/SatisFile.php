@@ -72,18 +72,24 @@ class SatisFile
     public function __construct($homepage, $existingConfig = null)
     {
         $this->homepage = rtrim($homepage, '/');
+        $this->webOptions = new SatisWebOutput();
+        $this->archiveOptions = new SatisArchiveOptions();
 
         if (is_string($existingConfig) && $tmpConfig = JsonFile::parseJson($existingConfig)) {
             $existingConfig = $tmpConfig;
         }
 
-        if (isset($existingConfig['twig-template'])) {
-            $this->webOptions = new SatisWebOutput($existingConfig['twig-template']);
+        if (isset($existingConfig['archive']) && is_array($existingConfig['archive'])) {
+            $this->archiveOptions->set($existingConfig['archive']);
         }
 
-        if (isset($existingConfig['archive'])) {
-            $this->archiveOptions = new SatisArchiveOptions();
-            $this->archiveOptions->set($existingConfig['archive']);
+        if (isset($existingConfig['twig-template'])) {
+            $this->webOptions->set($existingConfig['twig-template']);
+        }
+        elseif (isset($existingConfig['output-html'])) {
+            if (false === $existingConfig['output-html']) {
+                $this->webOptions->disable();
+            }
         }
 
         $this->satisConfig = $existingConfig ?: $this->getDefaultConfig();
@@ -305,13 +311,27 @@ class SatisFile
     }
 
     /**
+     * Merge all options config.
+     *
+     * @return array the Satis configuration as an array
+     */
+    private function doConfig()
+    {
+        return array_merge(
+            $this->satisConfig,
+            $this->getWebOptions()->get(),
+            array('archive' => $this->getArchiveOptions())
+        );
+    }
+
+    /**
      * Configuration as an array.
      *
      * @return array Configuration
      */
     public function asArray()
     {
-        return $this->satisConfig;
+        return $this->doConfig();
     }
 
     /**
@@ -321,6 +341,6 @@ class SatisFile
      */
     public function json()
     {
-        return JsonFile::encode($this->satisConfig);
+        return JsonFile::encode($this->doConfig());
     }
 }

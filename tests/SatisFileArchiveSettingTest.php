@@ -42,16 +42,18 @@ class SatisFileArchiveSettingTest extends PHPUnit_Framework_TestCase
     {
         $this->satisFile->disableArchiveOptions();
 
+        $config = $this->satisFile->asArray();
         $this->assertEquals(
-            $this->satisFile->getArchiveOptions(),
+            $config['archive'],
             array()
         );
     }
 
     public function testInitializationWithExistingConfig()
     {
+        $config = $this->satisFile->asArray();
         $this->assertEquals(
-            $this->satisFile->getArchiveOptions(),
+            $config['archive'],
             array('directory' => 'dist')
         );
     }
@@ -63,8 +65,9 @@ class SatisFileArchiveSettingTest extends PHPUnit_Framework_TestCase
     {
         $this->satisFile->setArchiveOptions(array('directory' => 'dist', 'skip-dev' => true));
 
+        $config = $this->satisFile->asArray();
         $this->assertEquals(
-            $this->satisFile->getArchiveOptions(),
+            $config['archive'],
             array('directory' => 'dist', 'skip-dev' => true)
         );
     }

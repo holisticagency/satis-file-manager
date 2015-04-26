@@ -1,7 +1,7 @@
 # satis-file-manager
 Satis configuration file utilities
 
-This lirary helps to create and update repositories in `satis.json` files.
+This library helps to create and update repositories in `satis.json` files.
 
 add the code below to your `composer.json` file :
 ```json

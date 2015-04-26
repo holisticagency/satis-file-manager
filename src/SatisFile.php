@@ -85,8 +85,7 @@ class SatisFile
 
         if (isset($existingConfig['twig-template'])) {
             $this->webOptions->set($existingConfig['twig-template']);
-        }
-        elseif (isset($existingConfig['output-html'])) {
+        } elseif (isset($existingConfig['output-html'])) {
             if (false === $existingConfig['output-html']) {
                 $this->webOptions->disable();
             }
@@ -219,6 +218,16 @@ class SatisFile
         $this->satisConfig['name'] = $name;
 
         return $this;
+    }
+
+    public function setOutputDir($outputDir)
+    {
+        $this->satisConfig['output-dir'] = $outputDir;
+    }
+
+    public function unsetOutputDir()
+    {
+        unset($this->satisConfig['output-dir']);
     }
 
     /**

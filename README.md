@@ -21,6 +21,12 @@ $new->setName('My Own Private Repository');
 //Set minimum stability of the repository
 $satis->setStability('stable');
 
+//Set an output directory
+$satis->setOutputDir('build');
+
+//Unset the output directory (default)
+$satis->unsetOutputDir();
+
 //By default, no web outputs are set.
 //This actives the Satis default html output:
 $new->setWebOptions(array('output-html' => true));

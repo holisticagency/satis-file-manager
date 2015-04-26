@@ -217,4 +217,21 @@ class SatisFileInitializationTest extends PHPUnit_Framework_TestCase
         $config = $this->satisFile->asArray();
         $this->assertEquals('alpha', $config['minimum-stability']);
     }
+
+    public function testSetOutputDir()
+    {
+        $this->satisFile->setOutputDir('build');
+
+        $config = $this->satisFile->asArray();
+        $this->assertEquals('build', $config['output-dir']);
+    }
+
+    public function testunsetOutputDir()
+    {
+        $this->satisFile->setOutputDir('build');
+        $this->satisFile->unsetOutputDir();
+
+        $config = $this->satisFile->asArray();
+        $this->assertFalse(isset($config['output-dir']));
+    }
 }

@@ -13,6 +13,7 @@ namespace holisticagency\satis\utilities;
 
 use Composer\Json\JsonFile;
 use Composer\Repository\RepositoryInterface;
+use Composer\Package\PackageInterface;
 
 /**
  * Satis configuration file utilities.
@@ -41,6 +42,8 @@ class SatisFile
      * @var array
      */
     private $repositories = array();
+
+    private $requireOptions;
 
     /**
      * Configuration options for html output.
@@ -72,6 +75,7 @@ class SatisFile
     public function __construct($homepage, $existingConfig = null)
     {
         $this->homepage = rtrim($homepage, '/');
+        $this->requireOptions = new SatisRequireOptions();
         $this->webOptions = new SatisWebOutput();
         $this->archiveOptions = new SatisArchiveOptions();
 
@@ -85,8 +89,7 @@ class SatisFile
 
         if (isset($existingConfig['twig-template'])) {
             $this->webOptions->set($existingConfig['twig-template']);
-        }
-        elseif (isset($existingConfig['output-html'])) {
+        } elseif (isset($existingConfig['output-html'])) {
             if (false === $existingConfig['output-html']) {
                 $this->webOptions->disable();
             }
@@ -110,13 +113,14 @@ class SatisFile
             'name'  => $this->name,
             'homepage' => $this->homepage,
             'repositories' => array(),
-            'require-all' => true,
         );
 
-        $this->webOptions = new SatisWebOutput();
+        $requireOptions = $this->requireOptions->getOptions();
+        $defaults = array_merge($defaults, $requireOptions);
+
         $webOptions = $this->webOptions->disable()->get();
         $defaults = array_merge($defaults, $webOptions);
-        $this->archiveOptions = new SatisArchiveOptions();
+
         $this->archiveOptions->set(array('directory' => 'dist'));
         $defaults = array_merge($defaults, $this->archiveOptions->get());
 
@@ -180,6 +184,55 @@ class SatisFile
             $this->satisConfig['repositories'][] = $satisRepository;
             $this->repositories[$index] = $hashedSatisRepo;
         }
+
+        return $this;
+    }
+
+    public function getRequireOptions()
+    {
+        return $this->requireOptions->getOptions();
+    }
+
+    public function setPackage(PackageInterface $package, $version = '')
+    {
+        $version = $version === '' ? $package->getPrettyVersion() : $version;
+        $this->requireOptions->setRequire($package->getName(), $version);
+        $this->requireOptions->setAll(false);
+
+        return $this;
+    }
+
+    public function unsetPackage(PackageInterface $package)
+    {
+        $this->requireOptions->setRequire($package->getName(), null);
+
+        return $this;
+    }
+
+    public function enableRequireDependencies()
+    {
+        $this->requireOptions->setDependencies();
+
+        return $this;
+    }
+
+    public function disableRequireDependencies()
+    {
+        $this->requireOptions->setDependencies(false);
+
+        return $this;
+    }
+
+    public function enableRequireDevDependencies()
+    {
+        $this->requireOptions->setDevDependencies();
+
+        return $this;
+    }
+
+    public function disableRequireDevDependencies()
+    {
+        $this->requireOptions->setDevDependencies(false);
 
         return $this;
     }
@@ -319,6 +372,7 @@ class SatisFile
     {
         return array_merge(
             $this->satisConfig,
+            $this->getRequireOptions(),
             $this->getWebOptions()->get(),
             array('archive' => $this->getArchiveOptions())
         );

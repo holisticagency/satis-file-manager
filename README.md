@@ -35,6 +35,35 @@ $vcs = new \Composer\Repository\VcsRepository(...);
 $toBeUpdated = new SatisFile('http://domain.tld', $existingConfig);
 var_dump($toBeUpdated->setRepository($vcs)->asArray());
 
+//For now, a repository may be an Artifact or a Composer repository:
+$artifact = new \Composer\Repository\ArtifactRepository(...);
+$composerRepository = new \Composer\Repository\ComposerRepository(...);
+$toBeUpdated = new SatisFile('http://domain.tld', $existingConfig);
+var_dump($toBeUpdated->setRepository($artifact)->setRepository($composerRepository)->asArray());
+
+//Specify a package
+$package = new \Composer\Package\Package(...);
+//Or:
+$package = new \Composer\Package\CompletePackage(...);
+
+//Specify a package with its actual version
+$toBeUpdated = new SatisFile('http://domain.tld', $existingConfig);
+var_dump($toBeUpdated->setPackage($package)->asArray());
+
+//Specify a package with a specific version
+$toBeUpdated = new SatisFile('http://domain.tld', $existingConfig);
+var_dump($toBeUpdated->setPackage($package, 'x.y.z')->asArray());
+
+//Specify a package with all its version
+$toBeUpdated = new SatisFile('http://domain.tld', $existingConfig);
+var_dump($toBeUpdated->setPackage($package, '*')->asArray());
+
+//Nota: The setPackage() methods adds or replaces a Package.
+
+//Remove a specified package
+$toBeUpdated = new SatisFile('http://domain.tld', $existingConfig);
+var_dump($toBeUpdated->unsetPackage($package)->asArray());
+
 //By default, downloads are enable with zip format and a `dist` directory.
 //This does some changes in archive options
 $satis->setArchiveOptions(array('directory' => 'downloads', 'skip-dev' => true));
@@ -42,4 +71,4 @@ $satis->setArchiveOptions(array('directory' => 'downloads', 'skip-dev' => true))
 $satis->disableArchiveOptions();
 ```
 
-It is not yet full featured. This utility can set vcs, composer or artifact repositories. `\Composer\Repository\PackageRepository` should be implemented. Other options should be created, like requires and deps, security options ...
+It is not yet full featured. This utility can set vcs, composer or artifact repositories. It lacks the ability to unset a repository. Class `\Composer\Repository\PackageRepository` should be implemented. Other options should be created, like output-dir and security options for repositories ...

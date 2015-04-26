@@ -57,7 +57,7 @@ class SatisRequireOptions implements Serializable
                 'require-all',
                 'require',
                 'require-dependencies',
-                'require-dev-dependencies'
+                'require-dev-dependencies',
             ))) {
                 unset($require[$key]);
             }
@@ -113,7 +113,7 @@ class SatisRequireOptions implements Serializable
 
     public function setRequire($requirePackageName, $requirePackageVersion = '*')
     {
-        if(is_null($requirePackageVersion)) {
+        if (is_null($requirePackageVersion)) {
             if (array_key_exists($requirePackageName, $this->require)) {
                 unset($this->require[$requirePackageName]);
             }

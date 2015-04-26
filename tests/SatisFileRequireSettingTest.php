@@ -87,17 +87,9 @@ class SatisFileRequireSettingTest extends PHPUnit_Framework_TestCase
     {
         $this->satisFile->setPackage(new Package('vendor/name', '1.0.0.0', '1.0'));
         $require = $this->satisFile->asArray();
-//        echo 'before unset()';
-// var_dump($require);
-// var_dump($this->satisFile->getRequireOptions());
-// ob_flush();
-        //$this->assertFalse($require['require-all']);
+        $this->assertFalse($require['require-all']);
 
         $this->satisFile->unsetPackage($package);
-//        echo 'after unset()';
-// var_dump($require);
-// var_dump($this->satisFile->getRequireOptions());
-// ob_flush();
 
         $require = $this->satisFile->asArray();
         $this->assertEquals($expected, $require['require-all']);

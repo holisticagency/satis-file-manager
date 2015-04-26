@@ -176,11 +176,11 @@ class SatisRequireOptions implements Serializable
                 unset($this->require[$requirePackageName]);
             }
 
-            return $this;
+            return $this->check();
         }
         $this->require = array_merge($this->require, array($requirePackageName => $requirePackageVersion));
 
-        return $this;
+        return $this->check();
     }
 
     /**

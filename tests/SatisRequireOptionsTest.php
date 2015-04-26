@@ -31,6 +31,9 @@ class SatisRequireOptionsTest extends PHPUnit_Framework_TestCase
     public function testGetDefaultRequireOptions()
     {
         $this->assertTrue($this->require->getAll());
+
+        $require = $this->require->getOptions();
+        $this->assertTrue($require['require-all']);
     }
 
     public function testSerialization()
@@ -82,6 +85,7 @@ class SatisRequireOptionsTest extends PHPUnit_Framework_TestCase
      */
     public function testReplaceRequire()
     {
+        $this->require->setRequire('vendor/name');
         $this->require->setRequire('vendor/name', '1.0');
 
         $require = $this->require->getRequire();
@@ -95,6 +99,8 @@ class SatisRequireOptionsTest extends PHPUnit_Framework_TestCase
 
         $require = $this->require->getRequire();
         $this->assertEmpty($require);
+
+        $this->assertTrue($this->require->getAll());
     }
 
     public function testRemoveNotExistingRequire()
@@ -107,7 +113,9 @@ class SatisRequireOptionsTest extends PHPUnit_Framework_TestCase
 
     public function testRequireAllUnset()
     {
-        $this->require->setRequire('vendor/name')->setAll(false);
+        $this->require->setRequire('vendor/name');
+        $this->assertFalse($this->require->getAll());
+
         $this->assertEquals(
             'C:50:"holisticagency\satis\utilities\SatisRequireOptions":53:{a:1:{s:7:"require";a:1:{s:11:"vendor/name";s:1:"*";}}}',
             serialize($this->require)

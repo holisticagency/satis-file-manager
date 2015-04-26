@@ -232,6 +232,9 @@ class SatisFile
     public function unsetPackage(PackageInterface $package)
     {
         $this->requireOptions->setRequire($package->getName(), null);
+        if (count($this->requireOptions->getRequire()) == 0) {
+            $this->satisConfig['require-all'] = true;
+        }
 
         return $this;
     }
@@ -417,6 +420,9 @@ class SatisFile
      */
     private function doConfig()
     {
+        if (count($this->requireOptions->getRequire()) > 0) {
+            unset($this->satisConfig['require-all']);
+        }
         return array_merge(
             $this->satisConfig,
             $this->getRequireOptions(),

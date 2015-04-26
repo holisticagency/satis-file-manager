@@ -45,7 +45,11 @@ var_dump($toBeUpdated->setRepository($vcs)->asArray());
 $artifact = new \Composer\Repository\ArtifactRepository(...);
 $composerRepository = new \Composer\Repository\ComposerRepository(...);
 $toBeUpdated = new SatisFile('http://domain.tld', $existingConfig);
-var_dump($toBeUpdated->setRepository($artifact)->setRepository($composerRepository)->asArray());
+var_dump($toBeUpdated
+    ->setRepository($artifact)
+    ->setRepository($composerRepository)
+    ->asArray()
+);
 
 //Remove a repository
 var_dump($toBeUpdated->unsetRepository($vcs)->asArray());
@@ -76,4 +80,4 @@ $satis->setArchiveOptions(array('directory' => 'downloads', 'skip-dev' => true))
 $satis->disableArchiveOptions();
 ```
 
-It is not yet full featured. This utility can set vcs, composer or artifact repositories. Class `\Composer\Repository\PackageRepository` should be implemented. Other options should be created, like output-dir and security options for repositories ...
+It is not yet full featured. This utility can set vcs, composer or artifact repositories. Class `\Composer\Repository\PackageRepository` should be implemented. Other options should be created, like security options for repositories ...

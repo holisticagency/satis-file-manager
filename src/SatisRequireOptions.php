@@ -65,7 +65,7 @@ class SatisRequireOptions implements Serializable
      *
      * @param array $require Set of options
      *
-     * @return array Clened set of options
+     * @return array Cleaned set of options
      */
     private function cleanArray(array $require)
     {

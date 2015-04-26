@@ -39,7 +39,7 @@ class SatisRequireOptionsTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             'C:50:"holisticagency\satis\utilities\SatisRequireOptions":29:{a:1:{s:11:"require-all";b:1;}}',
             serialize($this->require)
-        );       
+        );
         $this->assertTrue($this->require->getAll());
 
         $this->assertEquals(
@@ -111,7 +111,7 @@ class SatisRequireOptionsTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             'C:50:"holisticagency\satis\utilities\SatisRequireOptions":53:{a:1:{s:7:"require";a:1:{s:11:"vendor/name";s:1:"*";}}}',
             serialize($this->require)
-        );       
+        );
         $this->assertFalse($this->require->getAll());
     }
 }

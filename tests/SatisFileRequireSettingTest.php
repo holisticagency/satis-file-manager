@@ -56,17 +56,17 @@ class SatisFileRequireSettingTest extends PHPUnit_Framework_TestCase
     public function PackagesProvider()
     {
         return array(
-            array(new Package('vendor/name', '1.0.0.0', '1.0'), '*', array('vendor/name' => '*')), 
-            array(new CompletePackage('othervendor/othername', '1.0.0.0', '1.0'), '*', array('othervendor/othername' => '*')), 
-            array(new Package('vendor/name', '1.0.0.0', '1.0'), '~1.0', array('vendor/name' => '~1.0')), 
+            array(new Package('vendor/name', '1.0.0.0', '1.0'), '*', array('vendor/name' => '*')),
+            array(new CompletePackage('othervendor/othername', '1.0.0.0', '1.0'), '*', array('othervendor/othername' => '*')),
+            array(new Package('vendor/name', '1.0.0.0', '1.0'), '~1.0', array('vendor/name' => '~1.0')),
         );
     }
 
     public function PackagesToRemoveProvider()
     {
         return array(
-            array(new Package('vendor/name', '1.0.0.0', '1.0'), true), 
-            array(new Package('othervendor/othername', '1.0.0.0', '1.0'), false), 
+            array(new Package('vendor/name', '1.0.0.0', '1.0'), true),
+            array(new Package('othervendor/othername', '1.0.0.0', '1.0'), false),
         );
     }
 
@@ -87,17 +87,17 @@ class SatisFileRequireSettingTest extends PHPUnit_Framework_TestCase
     {
         $this->satisFile->setPackage(new Package('vendor/name', '1.0.0.0', '1.0'));
         $require = $this->satisFile->asArray();
-        echo 'before unset()';
-var_dump($require);
-var_dump($this->satisFile->getRequireOptions());
-ob_flush();
+//        echo 'before unset()';
+// var_dump($require);
+// var_dump($this->satisFile->getRequireOptions());
+// ob_flush();
         //$this->assertFalse($require['require-all']);
 
         $this->satisFile->unsetPackage($package);
-        echo 'after unset()';
-var_dump($require);
-var_dump($this->satisFile->getRequireOptions());
-ob_flush();
+//        echo 'after unset()';
+// var_dump($require);
+// var_dump($this->satisFile->getRequireOptions());
+// ob_flush();
 
         $require = $this->satisFile->asArray();
         $this->assertEquals($expected, $require['require-all']);

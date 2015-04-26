@@ -20,21 +20,53 @@ use Serializable;
  */
 class SatisRequireOptions implements Serializable
 {
+    /**
+     * Selects all versions of all packages in the defined repositories.
+     *
+     * @var bool
+     */
     private $all;
 
+    /**
+     * To cherry pick which packages.
+     *
+     * @var array
+     */
     private $require;
 
+    /**
+     * To resolve all the required packages from the listed repositories.
+     *
+     * @var bool
+     */
     private $dependencies;
 
+    /**
+     * To resolve all the dev-required packages from the listed repositories.
+     *
+     * @var bool
+     */
     private $devDependencies;
 
+    /**
+     * Check require options.
+     *
+     * @return SatisRequireOptions this SatisRequireOptions Instance
+     */
     private function check()
     {
-        if (!$this->all && empty($this->require)) {
-            $this->all = true;
-        }
+        $this->setAll(empty($this->require));
+
+        return $this;
     }
 
+    /**
+     * Unset unknown options or set with default value.
+     *
+     * @param array $require Set of options
+     *
+     * @return array Clened set of options
+     */
     private function cleanArray(array $require)
     {
         //Unset default values
@@ -66,6 +98,9 @@ class SatisRequireOptions implements Serializable
         return $require;
     }
 
+    /**
+     * Contructor.
+     */
     public function __construct()
     {
         $this->all = true;
@@ -84,6 +119,8 @@ class SatisRequireOptions implements Serializable
 
     /**
      * {@inheritDoc}
+     *
+     * @param string $serialized data to set this instance
      */
     public function unserialize($serialized)
     {
@@ -97,8 +134,16 @@ class SatisRequireOptions implements Serializable
             true === $require['require-dependencies'];
         $this->devDependencies = isset($require['require-dev-dependencies']) &&
             true === $require['require-dev-dependencies'];
+        $this->check();
     }
 
+    /**
+     * Sets require-all option.
+     *
+     * @param bool $all The value to set
+     *
+     * @return SatisRequireOptions this SatisRequireOptions Instance
+     */
     public function setAll($all = true)
     {
         $this->all = (bool) $all;
@@ -106,11 +151,24 @@ class SatisRequireOptions implements Serializable
         return $this;
     }
 
+    /**
+     * Gets require-all option..
+     *
+     * @return bool require-all option
+     */
     public function getAll()
     {
         return $this->all;
     }
 
+    /**
+     * Sets require option.
+     *
+     * @param string $requirePackageName    Package name
+     * @param string $requirePackageVersion Package version (default:all)
+     *
+     * @return SatisRequireOptions this SatisRequireOptions Instance
+     */
     public function setRequire($requirePackageName, $requirePackageVersion = '*')
     {
         if (is_null($requirePackageVersion)) {
@@ -125,11 +183,23 @@ class SatisRequireOptions implements Serializable
         return $this;
     }
 
+    /**
+     * Gets require option.
+     *
+     * @return array require option
+     */
     public function getRequire()
     {
         return $this->require;
     }
 
+    /**
+     * Sets require-dependencies option.
+     *
+     * @param bool $dependencies The value to set
+     *
+     * @return SatisRequireOptions this SatisRequireOptions Instance
+     */
     public function setDependencies($dependencies = true)
     {
         $this->dependencies = (bool) $dependencies;
@@ -137,11 +207,23 @@ class SatisRequireOptions implements Serializable
         return $this;
     }
 
+    /**
+     * Gets require-dependencies option.
+     *
+     * @return bool require-dependencies option
+     */
     public function getDependencies()
     {
         return $this->dependencies;
     }
 
+    /**
+     * Sets require-dev-dependencies option.
+     *
+     * @param bool $devDependencies The value to set
+     *
+     * @return SatisRequireOptions this SatisRequireOptions Instance
+     */
     public function setDevDependencies($devDependencies = true)
     {
         $this->devDependencies = (bool) $devDependencies;
@@ -149,11 +231,23 @@ class SatisRequireOptions implements Serializable
         return $this;
     }
 
+    /**
+     * Gets require-dev-dependencies option.
+     *
+     * @return bool require-dev-dependencies option
+     */
     public function getDevDependencies()
     {
         return $this->devDependencies;
     }
 
+    /**
+     * Gets all the require options.
+     *
+     * @api
+     *
+     * @return array Checked and cleaned array
+     */
     public function getOptions()
     {
         $this->check();

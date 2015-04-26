@@ -43,6 +43,11 @@ class SatisFile
      */
     private $repositories = array();
 
+    /**
+     * Require options to specify.
+     *
+     * @var SatisRequireOptions
+     */
     private $requireOptions;
 
     /**
@@ -81,6 +86,10 @@ class SatisFile
 
         if (is_string($existingConfig) && $tmpConfig = JsonFile::parseJson($existingConfig)) {
             $existingConfig = $tmpConfig;
+        }
+
+        if (isset($existingConfig) && is_array($existingConfig)) {
+            $this->requireOptions->unserialize(serialize($existingConfig));
         }
 
         if (isset($existingConfig['archive']) && is_array($existingConfig['archive'])) {
@@ -188,6 +197,11 @@ class SatisFile
         return $this;
     }
 
+    /**
+     * Gets all the require options.
+     *
+     * @return array Checked and cleaned array
+     */
     public function getRequireOptions()
     {
         return $this->requireOptions->getOptions();
@@ -208,6 +222,13 @@ class SatisFile
         return $this;
     }
 
+    /**
+     * Unsets a Package to cherry pick.
+     *
+     * @param PackageInterface $package The package to remove
+     *
+     * @return SatisFile this SatisFile Instance
+     */
     public function unsetPackage(PackageInterface $package)
     {
         $this->requireOptions->setRequire($package->getName(), null);
@@ -215,6 +236,11 @@ class SatisFile
         return $this;
     }
 
+    /**
+     * Sets require-dependencies option to true value.
+     *
+     * @return SatisFile this SatisFile Instance
+     */
     public function enableRequireDependencies()
     {
         $this->requireOptions->setDependencies();
@@ -222,6 +248,11 @@ class SatisFile
         return $this;
     }
 
+    /**
+     * Sets require-dependencies option to false value.
+     *
+     * @return SatisFile this SatisFile Instance
+     */
     public function disableRequireDependencies()
     {
         $this->requireOptions->setDependencies(false);
@@ -229,6 +260,11 @@ class SatisFile
         return $this;
     }
 
+    /**
+     * Sets require-dev-dependencies option to true value.
+     *
+     * @return SatisFile this SatisFile Instance
+     */
     public function enableRequireDevDependencies()
     {
         $this->requireOptions->setDevDependencies();
@@ -236,6 +272,11 @@ class SatisFile
         return $this;
     }
 
+    /**
+     * Sets require-dev-dependencies option to false value.
+     *
+     * @return SatisFile this SatisFile Instance
+     */
     public function disableRequireDevDependencies()
     {
         $this->requireOptions->setDevDependencies(false);
@@ -387,6 +428,8 @@ class SatisFile
     /**
      * Configuration as an array.
      *
+     * @api
+     *
      * @return array Configuration
      */
     public function asArray()
@@ -396,6 +439,8 @@ class SatisFile
 
     /**
      * Configuration as a Json string.
+     *
+     * @api
      *
      * @return string Configuration
      */

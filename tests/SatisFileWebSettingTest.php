@@ -32,7 +32,7 @@ class SatisFileWebSettingTest extends PHPUnit_Framework_TestCase
             'repositories' => array(),
             'require-all' => true,
             'archive' => array(
-                'directory' => 'dist'
+                'directory' => 'dist',
             ),
             'twig-template' => '/path/to/twig/templates',
         );

@@ -138,6 +138,8 @@ class SatisArchiveOptions implements Serializable
 
     /**
      * {@inheritDoc}
+     *
+     * @param string $serialized data to set this instance
      */
     public function unserialize($serialized)
     {

@@ -75,7 +75,7 @@ class SatisArchiveOptionsTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             'C:50:"holisticagency\satis\utilities\SatisArchiveOptions":33:{a:1:{s:9:"directory";s:4:"dist";}}',
             serialize($this->archive)
-        );       
+        );
 
         $this->assertEquals(
             unserialize('C:50:"holisticagency\satis\utilities\SatisArchiveOptions":33:{a:1:{s:9:"directory";s:4:"dist";}}'),

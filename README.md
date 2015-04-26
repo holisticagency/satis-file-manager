@@ -41,6 +41,9 @@ $composerRepository = new \Composer\Repository\ComposerRepository(...);
 $toBeUpdated = new SatisFile('http://domain.tld', $existingConfig);
 var_dump($toBeUpdated->setRepository($artifact)->setRepository($composerRepository)->asArray());
 
+//Remove a repository
+var_dump($toBeUpdated->unsetRepository($vcs)->asArray());
+
 //Specify a package
 $package = new \Composer\Package\Package(...);
 //Or:

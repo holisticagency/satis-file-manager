@@ -193,11 +193,17 @@ class SatisFile
         return $this->requireOptions->getOptions();
     }
 
-    public function setPackage(PackageInterface $package, $version = '')
+    /**
+     * Sets a Package to cherry pick.
+     *
+     * @param PackageInterface $package The package to cherry pick
+     * @param string           $version Constraint version
+     *
+     * @return SatisFile this SatisFile Instance
+     */
+    public function setPackage(PackageInterface $package, $version = '*')
     {
-        $version = $version === '' ? $package->getPrettyVersion() : $version;
         $this->requireOptions->setRequire($package->getName(), $version);
-        $this->requireOptions->setAll(false);
 
         return $this;
     }

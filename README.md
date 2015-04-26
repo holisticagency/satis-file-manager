@@ -49,17 +49,13 @@ $package = new \Composer\Package\Package(...);
 //Or:
 $package = new \Composer\Package\CompletePackage(...);
 
-//Specify a package with its actual version
+//Specify a package with all its version
 $toBeUpdated = new SatisFile('http://domain.tld', $existingConfig);
 var_dump($toBeUpdated->setPackage($package)->asArray());
 
-//Specify a package with a specific version
+//Specify a package with a specific version (a "pretty" version is expected)
 $toBeUpdated = new SatisFile('http://domain.tld', $existingConfig);
 var_dump($toBeUpdated->setPackage($package, 'x.y.z')->asArray());
-
-//Specify a package with all its version
-$toBeUpdated = new SatisFile('http://domain.tld', $existingConfig);
-var_dump($toBeUpdated->setPackage($package, '*')->asArray());
 
 //Nota: The setPackage() methods adds or replaces a Package.
 

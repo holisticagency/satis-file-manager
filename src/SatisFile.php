@@ -324,6 +324,16 @@ class SatisFile
         return $this;
     }
 
+    public function setOutputDir($outputDir)
+    {
+        $this->satisConfig['output-dir'] = $outputDir;
+    }
+
+    public function unsetOutputDir()
+    {
+        unset($this->satisConfig['output-dir']);
+    }
+
     /**
      * Gets configuration options for html output.
      *

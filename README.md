@@ -80,4 +80,4 @@ $satis->setArchiveOptions(array('directory' => 'downloads', 'skip-dev' => true))
 $satis->disableArchiveOptions();
 ```
 
-It is not yet full featured. This utility can set vcs, composer or artifact repositories. Class `\Composer\Repository\PackageRepository` should be implemented. Other options should be created, like security options for repositories ...
+It is not yet full featured. This utility can set vcs, composer or artifact repositories. Class `\Composer\Repository\PackageRepository` should be implemented.

@@ -15,6 +15,7 @@ use PHPUnit_Framework_TestCase;
 use holisticagency\satis\utilities\SatisFile;
 use Composer\Repository\VcsRepository;
 use Composer\Repository\PackageRepository;
+use Composer\Repository\ComposerRepository;
 use Composer\Package\Package;
 use Composer\IO\NullIO;
 use Composer\Config;
@@ -313,4 +314,59 @@ class SatisFileRepoSettingTest extends PHPUnit_Framework_TestCase
             $this->satisFile->json()
         );
     }
+
+    public function testComposerRepositoryWithSecurityOptions()
+    {
+        $config = new Config();
+        $config->merge(array(
+            'config' => array(
+                'home' => sys_get_temp_dir().'/composer-home-'.mt_rand().'/',
+            ),
+        ));
+        $ComposerRepository = new ComposerRepository(
+            array(
+                'type' => 'composer',
+                'url' => 'ssh2.sftp://example.org',
+                'options' => array(
+                    'ssh2' => array(
+                        "username" => "composer",
+                        "pubkey_file" => "/home/composer/.ssh/id_rsa.pub",
+                        "privkey_file" => "/home/composer/.ssh/id_rsa"
+                    ),
+                ),
+
+            ),
+            new NullIO(),
+            $config
+        );
+        $this->satisFile = $this->satisFile
+            ->setRepository($ComposerRepository);
+
+        $this->assertEquals(
+            '{
+    "name": "default name",
+    "homepage": "http://localhost:54715",
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "ssh2.sftp://example.org",
+            "options": {
+                "ssh2": {
+                    "username": "composer",
+                    "pubkey_file": "/home/composer/.ssh/id_rsa.pub",
+                    "privkey_file": "/home/composer/.ssh/id_rsa"
+                }
+            }
+        }
+    ],
+    "require-all": true,
+    "output-html": false,
+    "archive": {
+        "directory": "dist"
+    }
+}',
+            $this->satisFile->json()
+        );
+    }
+
 }

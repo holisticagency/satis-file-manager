@@ -29,6 +29,13 @@ class SatisComposerRepository extends ComposerRepository
     protected $url;
 
     /**
+     * The options to be exposed.
+     *
+     * @var array
+     */
+    protected $options;
+
+    /**
      * Constructor.
      *
      * @param RepositoryInterface $repository ComposerRepository object
@@ -36,6 +43,7 @@ class SatisComposerRepository extends ComposerRepository
     public function __construct(RepositoryInterface $repository)
     {
         $this->url = $repository->url;
+        $this->options = $repository->options;
     }
 
     /**
@@ -46,5 +54,15 @@ class SatisComposerRepository extends ComposerRepository
     public function getUrl()
     {
         return $this->url;
+    }
+
+    /**
+     * Public method to expose the options of a ComposerRepository.
+     *
+     * @return array The options to be exposed
+     */
+    public function getOptions()
+    {
+        return $this->options;
     }
 }

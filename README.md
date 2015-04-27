@@ -41,11 +41,13 @@ $vcs = new \Composer\Repository\VcsRepository(...);
 $toBeUpdated = new SatisFile('http://domain.tld', $existingConfig);
 var_dump($toBeUpdated->setRepository($vcs)->asArray());
 
-//For now, a repository may be an Artifact or a Composer repository:
+//A repository may be a Package, an Artifact or a Composer repository:
+$packageRepository = new \Composer\Repository\PackageRepository(...);
 $artifact = new \Composer\Repository\ArtifactRepository(...);
 $composerRepository = new \Composer\Repository\ComposerRepository(...);
 $toBeUpdated = new SatisFile('http://domain.tld', $existingConfig);
 var_dump($toBeUpdated
+    ->setRepository($packageRepository)
     ->setRepository($artifact)
     ->setRepository($composerRepository)
     ->asArray()
@@ -79,5 +81,3 @@ $satis->setArchiveOptions(array('directory' => 'downloads', 'skip-dev' => true))
 //This disables dist downloads
 $satis->disableArchiveOptions();
 ```
-
-It is not yet full featured. This utility can set vcs, composer or artifact repositories. Class `\Composer\Repository\PackageRepository` should be implemented.

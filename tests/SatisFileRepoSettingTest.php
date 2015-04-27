@@ -14,6 +14,7 @@ namespace holisticagency\satis\Test;
 use PHPUnit_Framework_TestCase;
 use holisticagency\satis\utilities\SatisFile;
 use Composer\Repository\VcsRepository;
+use Composer\Repository\PearRepository;
 use Composer\Repository\PackageRepository;
 use Composer\Repository\ComposerRepository;
 use Composer\Package\Package;
@@ -84,8 +85,11 @@ class SatisFileRepoSettingTest extends PHPUnit_Framework_TestCase
      */
     public function testUnsupportedRepository()
     {
-        $config = array('package' => new Package('vendor/name', '1.0.0', '1.0.0'));
-        $Repository = new PackageRepository($config);
+        $Repository = new PearRepository(
+            array('type' => 'pear', 'url' => 'http://pear2.php.net'),
+            new NullIO(),
+            new Config()
+        );
         $this->satisFile
             ->setRepository($Repository);
     }
@@ -329,9 +333,9 @@ class SatisFileRepoSettingTest extends PHPUnit_Framework_TestCase
                 'url' => 'ssh2.sftp://example.org',
                 'options' => array(
                     'ssh2' => array(
-                        "username" => "composer",
-                        "pubkey_file" => "/home/composer/.ssh/id_rsa.pub",
-                        "privkey_file" => "/home/composer/.ssh/id_rsa"
+                        'username' => 'composer',
+                        'pubkey_file' => '/home/composer/.ssh/id_rsa.pub',
+                        'privkey_file' => '/home/composer/.ssh/id_rsa',
                     ),
                 ),
 
@@ -369,4 +373,36 @@ class SatisFileRepoSettingTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testPackageRepository()
+    {
+        $package = array(
+            'name' => 'smarty/smarty',
+            'version' => '3.1.7',
+            'dist' => array(
+                'url' => 'http://www.smarty.net/files/Smarty-3.1.7.zip',
+                'type' => 'zip',
+                'reference' => '',
+            ),
+            'source' => array(
+                'url' => 'http://smarty-php.googlecode.com/svn/',
+                'type' => 'svn',
+                'reference' => 'tags/Smarty_3_1_7/distribution/',
+            ),
+            'autoload' => array(
+                'classmap' => array('libs/'),
+            ),
+        );
+
+        $packageConfig = array('type' => 'package', 'package' => $package);
+        $Repository = new PackageRepository($packageConfig);
+        $this->satisFile
+            ->setRepository($Repository);
+
+        $config = $this->satisFile->asArray();
+        $PackageRepository = $config['repositories'][0];
+        $this->assertEquals(
+            $packageConfig,
+            $PackageRepository
+        );
+    }
 }

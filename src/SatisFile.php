@@ -72,14 +72,20 @@ class SatisFile
     private $satisConfig;
 
     /**
-     * [hashRepository description]
+     * Hash function to manage Indexed Repositories.
      *
-     * @param  array  $repository [description]
-     * @return string             [description]
+     * @param array $repository repository configuration
+     *
+     * @return string md5 hash
      */
     private function hashRepository(array $repository)
     {
-        $array = array_intersect_key($repository, array('type' => true, 'url' => true));
+        $array = array(
+            'type' => $repository['type'],
+            'url' => $repository['type'] == 'package' ?
+                $repository['package']['source']['url'] :
+                $repository['url'],
+        );
 
         return md5(implode($array));
     }
@@ -174,6 +180,9 @@ class SatisFile
         } elseif ($repository instanceof \Composer\Repository\ArtifactRepository) {
             $repository = new SatisArtifactRepository($repository);
             $satisRepository = array('type' => 'artifact', 'url' => $repository->getLookup());
+        } elseif ($repository instanceof \Composer\Repository\PackageRepository) {
+            $repository = new SatisPackageRepository($repository);
+            $satisRepository = $repository->getSatisConfiguration();
         } else {
             throw new \Exception('Error Processing Request', 1);
         }
@@ -450,6 +459,7 @@ class SatisFile
         if (count($this->requireOptions->getRequire()) > 0) {
             unset($this->satisConfig['require-all']);
         }
+
         return array_merge(
             $this->satisConfig,
             $this->getRequireOptions(),

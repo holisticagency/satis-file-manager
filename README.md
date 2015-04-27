@@ -6,7 +6,7 @@ This library helps to create and update repositories in `satis.json` files.
 add the code below to your `composer.json` file :
 ```json
 "require": {
-    "holisticagency/satis-file-manager": "~1.0@alpha"
+    "holisticagency/satis-file-manager": "~1.0@beta"
 }
 `````
 

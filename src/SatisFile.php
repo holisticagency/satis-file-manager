@@ -72,6 +72,19 @@ class SatisFile
     private $satisConfig;
 
     /**
+     * [hashRepository description]
+     *
+     * @param  array  $repository [description]
+     * @return string             [description]
+     */
+    private function hashRepository(array $repository)
+    {
+        $array = array_intersect_key($repository, array('type' => true, 'url' => true));
+
+        return md5(implode($array));
+    }
+
+    /**
      * Constructor.
      *
      * @param string       $homepage       Homepage
@@ -107,7 +120,7 @@ class SatisFile
         $this->satisConfig = $existingConfig ?: $this->getDefaultConfig();
 
         foreach ($this->satisConfig['repositories'] as $index => $satisRepository) {
-            $this->repositories[$index] = md5(implode($satisRepository));
+            $this->repositories[$index] = $this->hashRepository($satisRepository);
         }
     }
 
@@ -143,7 +156,7 @@ class SatisFile
      *
      * @throws \Exception If $repository is of an unsupported class
      *
-     * @return array Combination of a type and an url
+     * @return array Combination of a type and an url (+options)
      */
     private function setRepositoryHelper(RepositoryInterface $repository)
     {
@@ -151,6 +164,10 @@ class SatisFile
         if ($repository instanceof \Composer\Repository\ComposerRepository) {
             $repository = new SatisComposerRepository($repository);
             $satisRepository = array('type' => 'composer', 'url' => $repository->getUrl());
+            $options = $repository->getOptions();
+            if (!empty($options)) {
+                $satisRepository['options'] = $options;
+            }
         } elseif ($repository instanceof \Composer\Repository\VcsRepository) {
             $repo = $repository->getRepoConfig();
             $satisRepository = array('type' => $repo['type'], 'url' => $repo['url']);
@@ -182,7 +199,7 @@ class SatisFile
                 $changeType = $index;
             }
         }
-        $hashedSatisRepo = md5(implode($satisRepository));
+        $hashedSatisRepo = $this->hashRepository($satisRepository);
         if (is_numeric($changeType)) {
             //Change type of repository
             $this->satisConfig['repositories'][$index]['type'] = $satisRepository['type'];
@@ -412,7 +429,7 @@ class SatisFile
     public function unsetRepository(RepositoryInterface $repository)
     {
         $satisRepository = $this->setRepositoryHelper($repository);
-        $hashedSatisRepo = md5(implode($satisRepository));
+        $hashedSatisRepo = $this->hashRepository($satisRepository);
         $index = array_search($hashedSatisRepo, $this->repositories);
         if (is_numeric($index)) {
             //Remove a repository

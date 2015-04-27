@@ -164,8 +164,9 @@ class SatisFile
         if ($repository instanceof \Composer\Repository\ComposerRepository) {
             $repository = new SatisComposerRepository($repository);
             $satisRepository = array('type' => 'composer', 'url' => $repository->getUrl());
-            if (!empty($repository->getOptions())) {
-                $satisRepository['options'] = $repository->getOptions();
+            $options = $repository->getOptions()
+            if (!empty($options)) {
+                $satisRepository['options'] = $options;
             }
         } elseif ($repository instanceof \Composer\Repository\VcsRepository) {
             $repo = $repository->getRepoConfig();

@@ -164,7 +164,7 @@ class SatisFile
         if ($repository instanceof \Composer\Repository\ComposerRepository) {
             $repository = new SatisComposerRepository($repository);
             $satisRepository = array('type' => 'composer', 'url' => $repository->getUrl());
-            $options = $repository->getOptions()
+            $options = $repository->getOptions();
             if (!empty($options)) {
                 $satisRepository['options'] = $options;
             }

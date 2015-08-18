@@ -42,6 +42,7 @@ class SatisArchiveOptions implements Serializable
     private $optionalKeys = array(
         'format', 'prefix-url', 'skip-dev',
         'whitelist', 'blacklist', 'absolute-directory',
+        'checksum',
     );
 
     /**
@@ -54,6 +55,7 @@ class SatisArchiveOptions implements Serializable
         'skip-dev'  => false,
         'whitelist' => array(),
         'blacklist' => array(),
+        'checksum'  => true,
     );
 
     /**

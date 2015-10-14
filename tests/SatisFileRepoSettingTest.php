@@ -17,6 +17,7 @@ use Composer\Repository\VcsRepository;
 use Composer\Repository\PearRepository;
 use Composer\Repository\PackageRepository;
 use Composer\Repository\ComposerRepository;
+use Composer\Repository\PathRepository;
 use Composer\Package\Package;
 use Composer\IO\NullIO;
 use Composer\Config;
@@ -403,6 +404,30 @@ class SatisFileRepoSettingTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             $packageConfig,
             $PackageRepository
+        );
+    }
+
+    public function testPathRepository()
+    {
+        $realUrl = glob(__DIR__.'/../', GLOB_MARK | GLOB_ONLYDIR);
+        $realUrl = $realUrl[0];
+        $repository = new PathRepository(
+            array('url' => __DIR__.'/../'),
+            new NullIO(),
+            new Config()
+        );
+        $this->satisFile
+            ->setRepository($repository);
+
+        $config = $this->satisFile->asArray();
+        $PathRepository = $config['repositories'][0];
+        $this->assertEquals(
+            $realUrl,
+            $PathRepository['url']
+        );
+        $this->assertEquals(
+            'path',
+            $PathRepository['type']
         );
     }
 }

@@ -183,6 +183,9 @@ class SatisFile
         } elseif ($repository instanceof \Composer\Repository\PackageRepository) {
             $repository = new SatisPackageRepository($repository);
             $satisRepository = $repository->getSatisConfiguration();
+        } elseif ($repository instanceof \Composer\Repository\PathRepository) {
+            $repository = new SatisPathRepository($repository);
+            $satisRepository = array('type' => 'path', 'url' => $repository->getUrl());
         } else {
             throw new \Exception('Error Processing Request', 1);
         }

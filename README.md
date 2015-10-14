@@ -45,11 +45,13 @@ var_dump($toBeUpdated->setRepository($vcs)->asArray());
 $packageRepository = new \Composer\Repository\PackageRepository(...);
 $artifact = new \Composer\Repository\ArtifactRepository(...);
 $composerRepository = new \Composer\Repository\ComposerRepository(...);
+$pathRepository = new \Composer\Repository\PathRepository(...);
 $toBeUpdated = new SatisFile('http://domain.tld', $existingConfig);
 var_dump($toBeUpdated
     ->setRepository($packageRepository)
     ->setRepository($artifact)
     ->setRepository($composerRepository)
+    ->setRepository($pathRepository)
     ->asArray()
 );
 
